@@ -163,12 +163,28 @@
       <p>Escolha um caderno, abra o PDF e <b>imprima</b> as páginas que quiser. Material pronto pra usar em sala ou em casa. 🖍️</p>
       <div style="margin-top:10px;display:inline-block;background:#fff;border:1px solid var(--line);border-radius:30px;padding:7px 14px;font-size:13px;font-weight:700;color:var(--green)">✨ Novos materiais toda semana!</div>
     </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;margin:4px 0 2px">
+      <details style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 15px">
+        <summary style="cursor:pointer;font-weight:700;font-size:14px">🖨️ Como imprimir (celular e PC)</summary>
+        <p style="margin:9px 0 0;font-size:13.5px;color:var(--soft);line-height:1.6">No <b>celular</b>: abra o PDF, toque em compartilhar e escolha <b>Imprimir</b> — ou salve e leve numa gráfica/lan house. No <b>PC</b>: abra o PDF e tecle <b>Ctrl + P</b>. 💡 Papel A4 comum; pode imprimir em preto e branco pra economizar tinta.</p>
+      </details>
+      <details style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 15px">
+        <summary style="cursor:pointer;font-weight:700;font-size:14px">👩‍🏫 Como usar com a criança</summary>
+        <p style="margin:9px 0 0;font-size:13.5px;color:var(--soft);line-height:1.6">Reserve <b>15 a 20 minutos por dia</b>, longe das telas. Comece pelo material mais fácil e avance aos poucos. Elogie cada tentativa — o importante é o processo, não a perfeição. 💛</p>
+      </details>
+      <details style="background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 15px">
+        <summary style="cursor:pointer;font-weight:700;font-size:14px">💾 Baixar e guardar</summary>
+        <p style="margin:9px 0 0;font-size:13.5px;color:var(--soft);line-height:1.6">Toque no material, baixe o PDF e guarde numa pasta no seu aparelho. Assim você imprime <b>quantas vezes quiser</b>, quando quiser — mesmo sem internet.</p>
+      </details>
+    </div>
     <div class="search"><input id="q" type="text" placeholder="Buscar atividade... (ex: alfabeto, labirinto, autismo)" oninput="renderCatalog()"></div>
     <div id="catalog"></div>
     <div class="help">💡 <b>Dica:</b> cada material abre em PDF pronto pra imprimir em folha A4. O acesso é pessoal e intransferível — não compartilhe seu login.</div>
     <div class="foot">
-      Acervo Pedagógico — material para imprimir, uso pessoal.<br>
-      Todo o conteúdo é protegido por direitos autorais. Proibido copiar, revender ou redistribuir.<br>
+      <b style="color:var(--brand)">🔒 Seu acesso é pessoal e intransferível.</b> Não compartilhe seu login e senha com outras pessoas.<br>
+      O compartilhamento de conta pode resultar no <b>bloqueio imediato do acesso, sem reembolso</b>.<br><br>
+      Acervo Pedagógico — material para imprimir, uso pessoal. Todo o conteúdo é protegido por <b>direitos autorais</b>: proibido copiar, revender ou redistribuir.<br>
       Dúvidas no acesso? <b id="foot-sup"></b>
     </div>
   </div>
