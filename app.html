@@ -183,7 +183,7 @@ const CFG = {
   SUPABASE_URL: "https://nwpoweamwnjqbgnwpusq.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im53cG93ZWFtd25qcWJnbndwdXNxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMTM1NTQsImV4cCI6MjA5NjY4OTU1NH0.X4wYz5hO-zB7Lxiy1Tl-t38Mp1n-c978L-iw7JMWYNQ",
   BUCKET: "acervo",
-  CATALOG: "catalog-acervo.json",
+  CATALOG_URL: "https://nwpoweamwnjqbgnwpusq.supabase.co/functions/v1/acervo-catalog",
   CHECKOUT_URL: "https://acervo-pedagogico.vercel.app",
   SUPPORT: "WhatsApp de suporte"
 };
@@ -271,7 +271,7 @@ async function gate(user){
   OWNED=new Set((data||[]).map(r=>r.product));
   if(error||OWNED.size===0){ show("noaccess"); return; }
   document.getElementById("app-who").textContent=user.email;
-  if(!CATALOG){ CATALOG = window.CATALOG_DATA || {products:[]}; }
+  if(!CATALOG){ try{ CATALOG = await (await fetch(CFG.CATALOG_URL+"?v="+Date.now())).json(); }catch(e){ CATALOG = window.CATALOG_DATA || {products:[]}; } if(!CATALOG.products||!CATALOG.products.length) CATALOG = window.CATALOG_DATA || CATALOG; }
   renderCatalog();
   show("app");
 }
@@ -293,9 +293,9 @@ function renderCatalog(){
     }
     const cads=(prod.categories||[]).filter(c=>!q || c.name.toLowerCase().includes(q) || prod.name.toLowerCase().includes(q));
     if(!cads.length) return;
-    const cells=cads.map(c=>`<button class="item" onclick='openFile(${JSON.stringify(c.path)})'><span class="ico">${fileIcon()}</span><span class="t">${esc(c.name)}<br><span style="font-weight:400;color:var(--soft);font-size:12px">${c.pages} páginas prontas 🖨️</span></span></button>`).join("");
+    const cells=cads.map(c=>`<button class="item" onclick='openFile(${JSON.stringify(c.path)})'><span class="ico">${fileIcon()}</span><span class="t">${esc(c.name)}<br><span style="font-weight:400;color:var(--soft);font-size:12px">${c.pages? c.pages+' páginas prontas':'Abrir material'} 🖨️</span></span></button>`).join("");
     const sec=document.createElement("div"); sec.className="prod";
-    sec.innerHTML=`<div class="prod-head"><span class="em">${prod.emoji}</span><h3>${esc(prod.name)}</h3><span class="cnt">${prod.paginas} páginas</span></div><p class="pdesc">${esc(prod.desc||"")}</p><div class="items" style="display:grid">${cells}</div>`;
+    sec.innerHTML=`<div class="prod-head"><span class="em">${prod.emoji}</span><h3>${esc(prod.name)}</h3><span class="cnt">${prod.count||cads.length} materiais</span></div><p class="pdesc">${esc(prod.desc||"")}</p><div class="items" style="display:grid">${cells}</div>`;
     root.appendChild(sec);
   });
   if(!root.children.length) root.innerHTML='<div class="help">Nenhum caderno encontrado pra essa busca.</div>';
